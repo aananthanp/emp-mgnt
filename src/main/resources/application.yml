@@ -1,0 +1,4 @@
+server.port: 8080
+logging.level.com.tech.gov.gds: info
+springdoc.api-docs.path: /api-docs
+springdoc.swagger-ui.use-root-path: true
