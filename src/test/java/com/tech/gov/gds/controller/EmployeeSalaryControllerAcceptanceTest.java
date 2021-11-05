@@ -700,7 +700,7 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectStatus().is4xxClientError()
-                .expectBody().json("{\"error\":\"Invalid csv format received at 3, expected number of column is 2\"}")
+                .expectBody().json("{\"error\":\"Invalid csv format received at line number 3, expected number of column is 2\"}")
         ;
         assertThat(employeeSalaryRepository.findAll().size()).isEqualTo(currentCount);
         assertThat(employeeSalaryService.findByName("Tim Southee")).isEmpty();

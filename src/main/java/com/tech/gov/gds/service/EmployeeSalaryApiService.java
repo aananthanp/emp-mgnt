@@ -1,7 +1,12 @@
 package com.tech.gov.gds.service;
 
+import com.opencsv.CSVParser;
+import com.opencsv.CSVParserBuilder;
+import com.opencsv.CSVReader;
+import com.opencsv.CSVReaderBuilder;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import com.opencsv.exceptions.CsvException;
 import com.tech.gov.gds.exception.RecordsCreationException;
 import com.tech.gov.gds.model.UsersApiResponse;
 import com.tech.gov.gds.model.dto.EmployeeSalaryDTO;
@@ -35,7 +40,7 @@ public class EmployeeSalaryApiService {
      * @return
      * @throws IOException
      */
-    public List<EmployeeSalaryDTO> uploadFile(MultipartFile file) throws IOException {
+    public List<EmployeeSalaryDTO> uploadFile(MultipartFile file) throws IOException, CsvException {
 
         validateInputDataFormat(new InputStreamReader(file.getInputStream()));
 
@@ -51,17 +56,19 @@ public class EmployeeSalaryApiService {
 
     }
 
-    private void validateInputDataFormat(Reader in) throws IOException {
-        BufferedReader reader = new BufferedReader(in);
-        String line=null;
-        long rowCount=0;
-        while ( (line = reader.readLine()) !=null) {
-            rowCount++;
-            if(line.split(COLUMN_SPLITER).length != 2) {
-                throw new RecordsCreationException(String.format("Invalid csv format received at %s, expected number of column is 2", rowCount));
-            }
+    private void validateInputDataFormat(Reader in) throws IOException, CsvException {
+        CSVParser csvParser = new CSVParserBuilder().withSeparator(',').build();
+        try(CSVReader reader = new CSVReaderBuilder(
+                in)
+                .withCSVParser(csvParser)
+                .build()){
+            List<String[]> csvData = reader.readAll();
+            csvData.forEach(line -> {
+                if(line.length != 2) {
+                    throw new RecordsCreationException(String.format("Invalid csv format received at line number %s, expected number of column is 2", line.length));
+                }
+            });
         }
-        reader.close();
     }
     /**
      * Upload the form data as csv content
@@ -70,7 +77,7 @@ public class EmployeeSalaryApiService {
      * @return
      * @throws IOException
      */
-    public List<EmployeeSalaryDTO> uploadForm(StringBuffer formData) throws IOException {
+    public List<EmployeeSalaryDTO> uploadForm(StringBuffer formData) throws IOException, CsvException {
 
         validateInputDataFormat(new StringReader(formData.toString()));
 

@@ -172,7 +172,7 @@ class EmployeeSalaryApiServiceTest {
     }
 
     @Test
-    void upload() throws IOException {
+    void upload() throws Exception {
 
         MockMultipartFile file = new MockMultipartFile("file",
                 EmployeeSalaryApiServiceTest.class.getClassLoader()
@@ -185,7 +185,7 @@ class EmployeeSalaryApiServiceTest {
     }
 
     @Test
-    void uploadFormData() throws IOException {
+    void uploadFormData() throws Exception {
 
         StringBuffer formData = new StringBuffer();
 
@@ -204,7 +204,7 @@ class EmployeeSalaryApiServiceTest {
     }
 
     @Test
-    void uploadFormData_OnlyHeader() throws IOException {
+    void uploadFormData_OnlyHeader() throws Exception {
 
         StringBuffer formData = new StringBuffer();
 
@@ -219,7 +219,7 @@ class EmployeeSalaryApiServiceTest {
     }
 
     @Test
-    void uploadFormData_OnlyNegativePrice() throws IOException {
+    void uploadFormData_OnlyNegativePrice() throws Exception {
 
         StringBuffer formData = new StringBuffer();
 
@@ -271,7 +271,7 @@ class EmployeeSalaryApiServiceTest {
     }
 
     @Test
-    void uploadFormData_WithExistingRecords() throws IOException {
+    void uploadFormData_WithExistingRecords() throws Exception {
 
         StringBuffer formData = new StringBuffer();
 
