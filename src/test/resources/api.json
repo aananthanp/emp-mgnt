@@ -10,11 +10,17 @@
       "description": "Generated server url"
     }
   ],
+  "tags": [
+    {
+      "name": "EmployeeSalary",
+      "description": "EmployeeSalary API"
+    }
+  ],
   "paths": {
     "/upload": {
       "post": {
         "tags": [
-          "employee-salary-controller"
+          "EmployeeSalary"
         ],
         "operationId": "formUpload",
         "parameters": [
@@ -51,12 +57,26 @@
     "/file_upload": {
       "post": {
         "tags": [
-          "employee-salary-controller"
+          "EmployeeSalary"
         ],
         "operationId": "fileUpload",
         "requestBody": {
           "content": {
-            "application/json": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "required": [
+                  "file"
+                ],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            },
+            "multipart/form-data": {
               "schema": {
                 "required": [
                   "file"
@@ -89,7 +109,7 @@
     "/users": {
       "get": {
         "tags": [
-          "employee-salary-controller"
+          "EmployeeSalary"
         ],
         "operationId": "getUsers",
         "parameters": [
@@ -98,7 +118,8 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "number"
+              "type": "number",
+              "default": 0.0
             }
           },
           {
@@ -106,7 +127,8 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "number"
+              "type": "number",
+              "default": 4000.0
             }
           },
           {
@@ -115,7 +137,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 0
             }
           },
           {
@@ -124,7 +147,8 @@
             "required": false,
             "schema": {
               "type": "integer",
-              "format": "int32"
+              "format": "int32",
+              "default": 0
             }
           },
           {
@@ -132,7 +156,8 @@
             "in": "query",
             "required": false,
             "schema": {
-              "type": "string"
+              "type": "string",
+              "default": ""
             }
           }
         ],
@@ -143,134 +168,6 @@
               "*/*": {
                 "schema": {
                   "type": "object"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/error": {
-      "get": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_1",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "put": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_2",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "post": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_3",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "options": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_4",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "head": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_5",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      },
-      "patch": {
-        "tags": [
-          "custom-generic-exception-handler"
-        ],
-        "operationId": "handleError_6",
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ApiErrorResponse"
                 }
               }
             }
