@@ -403,7 +403,7 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
     }
 
     @Test
-    void test_acceptance_criteria_() throws JsonProcessingException {
+    void test_Normal() throws JsonProcessingException {
         String value = webClient
                 .get()
                 .uri(uriBuilder -> uriBuilder.path(Constants.ENTRY_POINT_USERS)
@@ -434,13 +434,6 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
         String value = "{\"results\":[{\"name\":\"Moeen Ali\",\"salary\":2500.0500000000},{\"name\":\"Mary Posa\",\"salary\":4000.0000000000},{\"name\":\"Harry\",\"salary\":1500.5000000000},{\"name\":\"Martin Guptill\",\"salary\":4000.0000000000},{\"name\":\"Ginny Weasley\",\"salary\":3500.0000000000},{\"name\":\"Ish Sodhi\",\"salary\":3275.5000000000}]}";
         UsersApiResponse response = objectMapper.readValue(value, UsersApiResponse.class);
         assertThat(response).isNotNull();
-    }
-
-    public MultiValueMap<String, HttpEntity<?>> fromFile(File file) {
-        MultipartBodyBuilder builder = new MultipartBodyBuilder();
-
-        builder.part("file", new FileSystemResource(file));
-        return builder.build();
     }
 
     @Test
@@ -652,7 +645,7 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
      */
     @Test
     @Description("Upload with an improperly structured CSV file that should contain at least some good rows")
-    void test_acceptance_criteria_3() throws IOException {
+    void test_acceptance_criteria_3_Numeric_parse_error() throws IOException {
         String filePath = "classpath:static/sample/user_test_data_3_parse_error.csv";
         List<String> lines = Collections.emptyList();
         lines = Files.readAllLines(Paths.get(resourceLoader.getResource(filePath).getURI()));
@@ -687,6 +680,7 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
     }
 
     @Test
+    @Description("Upload with an improperly structured CSV file that should contain at least some good rows")
     void test_acceptance_criteria_3_in_correct_column() throws IOException {
         String filePath = "classpath:static/sample/user_test_data_3_no_of_column.csv";
         List<String> lines = Collections.emptyList();
@@ -706,7 +700,7 @@ class EmployeeSalaryControllerAcceptanceTest extends AcceptanceTestBase {
                 .exchange()
                 .expectHeader().contentType(MediaType.APPLICATION_JSON)
                 .expectStatus().is4xxClientError()
-                .expectBody().json("{\"error\":\"Invalid csv format received at 1, expected number of column is 2\"}")
+                .expectBody().json("{\"error\":\"Invalid csv format received at 3, expected number of column is 2\"}")
         ;
         assertThat(employeeSalaryRepository.findAll().size()).isEqualTo(currentCount);
         assertThat(employeeSalaryService.findByName("Tim Southee")).isEmpty();

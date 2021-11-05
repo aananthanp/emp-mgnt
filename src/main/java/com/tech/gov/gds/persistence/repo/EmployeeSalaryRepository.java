@@ -19,12 +19,10 @@ public interface EmployeeSalaryRepository extends JpaRepository<EmployeeSalary, 
     Page<EmployeeSalary> findBySalaryBetween(Pageable pageable, BigDecimal minSalary, BigDecimal maxSalary);
 
     List<EmployeeSalary> findBySalaryBetween(Sort sort, BigDecimal minSalary, BigDecimal maxSalary);
-
-    List<EmployeeSalary> findBySalaryBetweenOrderByNameAsc(Sort sort, BigDecimal minSalary, BigDecimal maxSalary);
-    List<EmployeeSalary> findBySalaryBetweenOrderBySalaryAsc(Sort sort, BigDecimal minSalary, BigDecimal maxSalary);
-
-    Page<EmployeeSalary> findBySalaryBetweenOrderByNameAsc(Pageable pageable, BigDecimal minSalary, BigDecimal maxSalary);
-    Page<EmployeeSalary> findBySalaryBetweenOrderBySalaryAsc(Pageable pageable, BigDecimal minSalary, BigDecimal maxSalary);
+//    List<EmployeeSalary> findBySalaryBetweenOrderByNameAsc(Sort sort, BigDecimal minSalary, BigDecimal maxSalary);
+//    List<EmployeeSalary> findBySalaryBetweenOrderBySalaryAsc(Sort sort, BigDecimal minSalary, BigDecimal maxSalary);
+//    Page<EmployeeSalary> findBySalaryBetweenOrderByNameAsc(Pageable pageable, BigDecimal minSalary, BigDecimal maxSalary);
+//    Page<EmployeeSalary> findBySalaryBetweenOrderBySalaryAsc(Pageable pageable, BigDecimal minSalary, BigDecimal maxSalary);
 
     List<EmployeeSalary> findBySalaryBetween(BigDecimal minSalary, BigDecimal maxSalary);
 }

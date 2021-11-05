@@ -108,7 +108,7 @@ class EmployeeSalaryControllerTest {
                     .andExpect(content().json(jsonExpected));
 
             verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(any(), any(), any(), any(), any());
-            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.ZERO),
+            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.valueOf(0.0)),
                     eq(BigDecimal.valueOf(4000.0)),
                     eq(0),
                     eq(0),
@@ -180,7 +180,7 @@ class EmployeeSalaryControllerTest {
                     .andExpect(content().json(jsonExpected));
 
             verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(any(), any(), any(), any(), any());
-            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.ZERO),
+            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.valueOf(0.0)),
                     eq(BigDecimal.valueOf(5000.0000000000)),
                     eq(0),
                     eq(0),
@@ -202,7 +202,7 @@ class EmployeeSalaryControllerTest {
                     .andExpect(content().json(jsonExpected));
 
             verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(any(), any(), any(), any(), any());
-            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.ZERO),
+            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.valueOf(0.0)),
                     eq(BigDecimal.valueOf(4000.0)),
                     eq(0),
                     eq(0),
@@ -224,7 +224,7 @@ class EmployeeSalaryControllerTest {
                     .andExpect(content().json(jsonExpected));
 
             verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(any(), any(), any(), any(), any());
-            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.ZERO),
+            verify(employeeSalaryApiService, times(1)).getEmployeeSalaryDetails(eq(BigDecimal.valueOf(0.0)),
                     eq(BigDecimal.valueOf(4000.0)),
                     eq(0),
                     eq(0),
