@@ -63,7 +63,7 @@ public class EmployeeSalaryController {
             recordLimit = limit;
         }
         SortType recordSorting = SortType.NO_SORTING;
-        if (sort != null) {
+        if (StringUtils.hasText(sort)) {
             if (sort.equalsIgnoreCase(SortType.NAME.getSortType())) {
                 recordSorting = SortType.NAME;
             } else if (sort.equalsIgnoreCase(SortType.SALARY.getSortType())) {
