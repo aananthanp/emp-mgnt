@@ -21,7 +21,12 @@ import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -489,5 +494,64 @@ class EmployeeSalaryControllerTest {
                     .andExpect(content().json(jsonExpected));
         }
     }
+
+
+
+    List<String> findCompleteDuplicate(List<String> listOfLines) {
+        HashMap<String, Integer> duplicateList  = new HashMap<>();
+        listOfLines
+                .stream()
+                .forEach( entry -> {
+                    if(duplicateList.containsKey(entry)){
+                        int counter = duplicateList.get(entry);
+                        duplicateList.put(entry, ++counter);
+                    }else{
+                        duplicateList.put(entry, 1);
+                    }
+                });
+        return duplicateList.entrySet()
+                .stream()
+                .filter(entry-> entry.getValue() > 1)
+                .map(entry->entry.getKey())
+                .collect(Collectors.toList());
+    }
+
+    public List<String> findPartialDuplicate(List<String> listOfLines) {
+
+        HashMap<String, List<String>> duplicateList  = new HashMap<>();
+        listOfLines
+                .stream()
+                .forEach( entry -> {
+                    String[] subKeys = entry.split(",");
+                    for(String key : subKeys) {
+                        if(duplicateList.containsKey(key)){
+                            duplicateList.get(key).add(entry);
+                        }else{
+                            duplicateList.put(key, new ArrayList<>());
+                            duplicateList.get(key).add(entry);
+                        }
+                    }
+                });
+        return duplicateList.entrySet()
+                .stream()
+                .filter(entry-> entry.getValue().size() > 1)
+                .flatMap(entry->entry.getValue().stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+    }
+
+
+    @Test
+    void testDuplicate() {
+
+        List<String> inputData = Arrays.asList("A,B,C", "A,B,E", "A,B,C", "D,X,E");
+
+        assertThat(findCompleteDuplicate(inputData)).isEqualTo(Arrays.asList("A,B,C"));
+        assertThat(findPartialDuplicate(inputData)).containsExactlyInAnyOrder("A,B,C","D,X,E", "A,B,E");
+
+        log.info(findPartialDuplicate(inputData));
+    }
+
 
 }
